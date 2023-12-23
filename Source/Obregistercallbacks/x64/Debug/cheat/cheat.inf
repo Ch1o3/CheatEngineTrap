@@ -1,0 +1,80 @@
+;
+; cheat.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=System ; TODO: specify appropriate Class
+ClassGuid={4d36e97d-e325-11ce-bfc1-08002be10318} ; TODO: specify appropriate ClassGuid
+Provider=%ManufacturerName%
+CatalogFile=cheat.cat
+DriverVer = 12/22/2023,22.23.46.44
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir = 12
+cheat_Device_CoInstaller_CopyFiles = 11
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+cheat.sys  = 1,,
+;
+
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTamd64
+
+[Standard.NTamd64]
+%cheat.DeviceDesc%=cheat_Device, Root\cheat ; TODO: edit hw-id
+
+[cheat_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+cheat.sys
+
+;-------------- Service installation
+[cheat_Device.NT.Services]
+AddService = cheat,%SPSVCINST_ASSOCSERVICE%, cheat_Service_Inst
+
+; -------------- cheat driver install sections
+[cheat_Service_Inst]
+DisplayName    = %cheat.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\cheat.sys
+
+;
+;--- cheat_Device Coinstaller installation ------
+;
+
+[cheat_Device.NT.CoInstallers]
+AddReg=cheat_Device_CoInstaller_AddReg
+CopyFiles=cheat_Device_CoInstaller_CopyFiles
+
+[cheat_Device_CoInstaller_AddReg]
+;
+
+
+[cheat_Device_CoInstaller_CopyFiles]
+;
+
+
+[cheat_Device.NT.Wdf]
+KmdfService =  cheat, cheat_wdfsect
+[cheat_wdfsect]
+KmdfLibraryVersion = 1.15
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="<Your manufacturer name>" ;TODO: Replace with your manufacturer name
+DiskName = "cheat Installation Disk"
+cheat.DeviceDesc = "cheat Device"
+cheat.SVCDESC = "cheat Service"

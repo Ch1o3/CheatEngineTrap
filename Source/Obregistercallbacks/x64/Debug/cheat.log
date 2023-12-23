@@ -1,0 +1,16 @@
+﻿  Building 'cheat' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
+  Stamping x64\Debug\cheat.inf
+  Stamping [Version] section with DriverVer=12/22/2023,22.23.46.44
+  cheat.vcxproj -> D:\Driver\cheat\x64\Debug\cheat.sys
+  Driver is 'Universal'.
+  .........................
+  Signability test complete.
+  
+  Errors:
+  None
+  
+  Warnings:
+  None
+  
+  Catalog generation complete.
+  D:\Driver\cheat\x64\Debug\cheat\cheat.cat
