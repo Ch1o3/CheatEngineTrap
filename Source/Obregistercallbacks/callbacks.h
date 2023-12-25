@@ -35,7 +35,7 @@ OB_PREOP_CALLBACK_STATUS PreCallback(PVOID RegistrationContext, POB_PRE_OPERATIO
 
 	strcpy(szProcName, GetProcessImageNameByProcessID((ULONG)pid));
 
-	if (!_strnicmp(szProcName, "notepad.exe", 16))
+	if (!_strnicmp(szProcName, "Overwatch.exe", 16))
 	{
 		if ((pOperationInformation->Operation == OB_OPERATION_HANDLE_CREATE))
 		{
@@ -73,8 +73,8 @@ void PostCallback(PVOID RegistrationContext, POB_POST_OPERATION_INFORMATION pOpe
 	char szProcName[16] = { 0, };
 	HANDLE pid = PsGetProcessId((PEPROCESS)pOperationInformation->Object);
 
-	strcpy(szProcName, ((DWORD64)pOperationInformation->Object + iOffset.ImageFileName_off));
-	if (!_strnicmp(szProcName, "notepad.exe", 16))
+	strcpy(szProcName, GetProcessImageNameByProcessID((ULONG)pid));
+	if (!_strnicmp(szProcName, "Overwatch.exe", 16))
 	{
 		pListEntry = ((DWORD64)pOperationInformation->Object + iOffset.ActiveProcessLinks_off);
 		if (pListEntry->Flink != NULL && pListEntry->Blink != NULL)
